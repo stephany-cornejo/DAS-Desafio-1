@@ -28,6 +28,12 @@ public partial class Form1 : Form
         dataGridViewLibros.Columns.Add("Año", "Año");
         dataGridViewLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         
+        // Adjust column widths - Título and Autor 2.5x wider
+        dataGridViewLibros.Columns["ID"].Width = 40;
+        dataGridViewLibros.Columns["Titulo"].Width = 200;  // 2.5x wider
+        dataGridViewLibros.Columns["Autor"].Width = 200;   // 2.5x wider
+        dataGridViewLibros.Columns["Año"].Width = 60;
+        
         dataGridViewUsuarios.Columns.Clear();
         dataGridViewUsuarios.Columns.Add("ID", "ID");
         dataGridViewUsuarios.Columns.Add("Nombre", "Nombre");

@@ -14,14 +14,7 @@ partial class Form1
 
     // Libros Tab Controls
     private DataGridView dataGridViewLibros;
-    private Label labelID;
-    private TextBox textBoxID;
-    private Label labelTitulo;
-    private TextBox textBoxTitulo;
-    private Label labelAutor;
-    private TextBox textBoxAutor;
-    private Label labelAño;
-    private TextBox textBoxAño;
+    private Label labelTituloLibros;
     private Button btnAgregar;
     private Button btnEditar;
     private Button btnEliminar;
@@ -73,54 +66,30 @@ partial class Form1
         
         // DataGridView
         this.dataGridViewLibros = new DataGridView();
-        this.dataGridViewLibros.Location = new System.Drawing.Point(12, 12);
-        this.dataGridViewLibros.Size = new System.Drawing.Size(760, 250);
-        this.dataGridViewLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        this.dataGridViewLibros.Location = new System.Drawing.Point(12, 40);
+        this.dataGridViewLibros.Size = new System.Drawing.Size(760, 200);
+        this.dataGridViewLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         this.dataGridViewLibros.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
         this.dataGridViewLibros.BorderStyle = BorderStyle.Fixed3D;
         this.tabPageLibros.Controls.Add(this.dataGridViewLibros);
         
-        // Input Panel for Books
-        int panelY = 270;
-        int panelX = 12;
-        int labelWidth = 130;
-        int inputWidth = 200;
-        int spacing = 35;
-        int columnSpacing = 400;
+        // Title for Libros
+        this.labelTituloLibros = new Label();
+        this.labelTituloLibros.Text = "Administrar libros";
+        this.labelTituloLibros.Location = new System.Drawing.Point(12, 12);
+        this.labelTituloLibros.Size = new System.Drawing.Size(400, 25);
+        this.labelTituloLibros.Font = new System.Drawing.Font(this.Font.FontFamily, 12, System.Drawing.FontStyle.Bold);
+        this.tabPageLibros.Controls.Add(this.labelTituloLibros);
         
-        // Row 1: ID and Titulo
-        this.labelID = CreateLabel("ID:", panelX, panelY, labelWidth);
-        this.textBoxID = CreateTextBox(panelX + labelWidth, panelY, inputWidth);
-        this.textBoxID.ReadOnly = true;
-        this.labelTitulo = CreateLabel("Título:", panelX + columnSpacing, panelY, labelWidth);
-        this.textBoxTitulo = CreateTextBox(panelX + columnSpacing + labelWidth, panelY, inputWidth);
-        
-        this.tabPageLibros.Controls.Add(this.labelID);
-        this.tabPageLibros.Controls.Add(this.textBoxID);
-        this.tabPageLibros.Controls.Add(this.labelTitulo);
-        this.tabPageLibros.Controls.Add(this.textBoxTitulo);
-        
-        // Row 2: Autor and Año
-        panelY += spacing;
-        this.labelAutor = CreateLabel("Autor:", panelX, panelY, labelWidth);
-        this.textBoxAutor = CreateTextBox(panelX + labelWidth, panelY, inputWidth);
-        this.labelAño = CreateLabel("Año:", panelX + columnSpacing, panelY, labelWidth);
-        this.textBoxAño = CreateTextBox(panelX + columnSpacing + labelWidth, panelY, inputWidth / 2);
-        
-        this.tabPageLibros.Controls.Add(this.labelAutor);
-        this.tabPageLibros.Controls.Add(this.textBoxAutor);
-        this.tabPageLibros.Controls.Add(this.labelAño);
-        this.tabPageLibros.Controls.Add(this.textBoxAño);
-        
-        // Buttons
-        panelY += spacing + 10;
+        // Buttons for Libros
         int btnWidth = 90;
         int btnHeight = 30;
         int btnSpacing = 100;
+        int librosButtonsY = 240 + 100;  // 100px distance from DataGridView
         
-        this.btnAgregar = CreateButton("Agregar", panelX, panelY, btnWidth, btnHeight);
-        this.btnEditar = CreateButton("Editar", panelX + btnSpacing, panelY, btnWidth, btnHeight);
-        this.btnEliminar = CreateButton("Eliminar", panelX + btnSpacing * 2, panelY, btnWidth, btnHeight);
+        this.btnAgregar = CreateButton("Agregar", 12, librosButtonsY, btnWidth, btnHeight);
+        this.btnEditar = CreateButton("Editar", 12 + btnSpacing, librosButtonsY, btnWidth, btnHeight);
+        this.btnEliminar = CreateButton("Eliminar", 12 + btnSpacing * 2, librosButtonsY, btnWidth, btnHeight);
         
         this.tabPageLibros.Controls.Add(this.btnAgregar);
         this.tabPageLibros.Controls.Add(this.btnEditar);
