@@ -1,0 +1,46 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+
+# Visual Studio Code
+.vscode/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Local History for Visual Studio Code
+.history/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Files built by Visual Studio
+*.sln
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Project Specific
+.DS_Store
