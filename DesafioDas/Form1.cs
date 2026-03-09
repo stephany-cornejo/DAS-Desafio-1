@@ -84,10 +84,19 @@ public partial class Form1 : Form
 
     private void CargarDatosIniciales()
     {
-        // Datos de ejemplo
-        usuarios.Add(new clsUsuarios("Juan Pérez", "juan@example.com") { Id = nextIdUsuario++ });
-        usuarios.Add(new clsUsuarios("María García", "maria@example.com") { Id = nextIdUsuario++ });
-        usuarios.Add(new clsUsuarios("Carlos López", "carlos@example.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Ana García", "anagarcia78@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Antonio Barrientos", "barrientos99@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Miguel Anaya", "anaya.miguel@hotmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Marcos Cortejo", "cor-mar238@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Maribel Guardado", "mariguardado@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Lisbeth Argueta", "liss34@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Lily Acosta", "lilies09@hotmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Ana Castro", "castro32@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Bryan Castillo", "castillo27@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Jose Bonilla", "josee36bonilla@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Kimberly Chacón", "chaconchacon@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Katerin Gonzalez", "rosesarered@gmail.com") { Id = nextIdUsuario++ });
+        usuarios.Add(new clsUsuarios("Kevin Trujillo", "trujillo3kevin@gmail.com") { Id = nextIdUsuario++ });
 
         libros.Add(new clsLibros("1984", "George Orwell", "1949") { Id = nextIdLibro++ });
         libros.Add(new clsLibros("Don Quijote", "Miguel de Cervantes", "1605") { Id = nextIdLibro++ });
