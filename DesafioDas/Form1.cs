@@ -59,7 +59,7 @@ public partial class Form1 : Form
     
     private void BtnAgregar_Click(object? sender, EventArgs e)
     {
-        MessageBox.Show("Modo agregar: Complete el formulario", "Agregar Libro");
+        MessageBox.Show("Complete el formulario e intentelo nuevamente", "Agregar Libro");
     }
     
     private void BtnEditar_Click(object? sender, EventArgs e)
@@ -87,7 +87,7 @@ public partial class Form1 : Form
     // ========== USUARIOS EVENT HANDLERS ==========
     private void BtnAgregarUsuario_Click(object? sender, EventArgs e)
     {
-        MessageBox.Show("Modo agregar usuario: Complete los datos", "Agregar Usuario");
+        MessageBox.Show("Complete el formulario e intentelo nuevamente", "Agregar Usuario");
     }
     
     private void BtnEditarUsuario_Click(object? sender, EventArgs e)
@@ -120,7 +120,7 @@ public partial class Form1 : Form
             MessageBox.Show("Seleccione un usuario", "Advertencia");
             return;
         }
-        MessageBox.Show("Modo agregar préstamo: Complete los datos", "Agregar Préstamo");
+        MessageBox.Show("Complete los datos e intentelo nuevamente", "Agregar Préstamo");
     }
     
     private void BtnEditarPrestamo_Click(object? sender, EventArgs e)
