@@ -98,10 +98,19 @@ public partial class Form1 : Form
         usuarios.Add(new clsUsuarios("Katerin Gonzalez", "rosesarered@gmail.com") { Id = nextIdUsuario++ });
         usuarios.Add(new clsUsuarios("Kevin Trujillo", "trujillo3kevin@gmail.com") { Id = nextIdUsuario++ });
 
-        libros.Add(new clsLibros("1984", "George Orwell", "1949") { Id = nextIdLibro++ });
-        libros.Add(new clsLibros("Don Quijote", "Miguel de Cervantes", "1605") { Id = nextIdLibro++ });
-        libros.Add(new clsLibros("Cien años de soledad", "Gabriel García Márquez", "1967") { Id = nextIdLibro++ });
-        libros.Add(new clsLibros("El Principito", "Antoine de Saint-Exupéry", "1943") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Cien Años de Soledad", "Gabriel García Márquez", "1967") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("La Casa de los Espiritus", "Isabel Allende", "1982") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Como Agua para Chocolate", "Laura Esquivel", "1989") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Delirios", "Laura Restrepo", "2004") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("La Fiesta del Chivo", "Mario Vargas LLosa", "2000") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Los Pasos Perdidos", "Alejo Carpentier", "1953") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Romeo y Julieta", "William Shakespeare", "1597") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Don Quijote de la Mancha", "Miguel de Cervantes", "1605") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Orgullo y Prejuicio", "Jane Austen", "1813") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Frankenstein", "Mary Shelley", "1818") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Los 3 Mosqueteros", "Alexandre Dumas", "1844") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Cumbres Borrascosas", "Emily Bronte", "1847") { Id = nextIdLibro++ });
+        libros.Add(new clsLibros("Jane Eyre", "Charlotte Bronte", "1847") { Id = nextIdLibro++ });    
 
         prestamos.Add(new clsPrestamos(1, 1, "1984", "Juan Pérez", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(7)) { Id = nextIdPrestamo++ });
         prestamos.Add(new clsPrestamos(2, 2, "Don Quijote", "María García", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(2)) { Id = nextIdPrestamo++ });
