@@ -11,6 +11,7 @@ partial class Form1
     private TabControl tabControlMain;
     private TabPage tabPageLibros;
     private TabPage tabPageUsuarios;
+    private TabPage tabPagePrestamos;
 
     // Libros Tab Controls
     private DataGridView dataGridViewLibros;
@@ -25,6 +26,14 @@ partial class Form1
     private Button btnAgregarUsuario;
     private Button btnEditarUsuario;
     private Button btnEliminarUsuario;
+    
+    // Préstamos Tab Controls
+    private Label labelTituloPrestamos;
+    private ComboBox comboBoxUsuarios;
+    private DataGridView dataGridViewPrestamos;
+    private Button btnAgregarPrestamo;
+    private Button btnEditarPrestamo;
+    private Button btnEliminarPrestamo;
 
     /// <summary>
     ///  Clean up any resources being used.
@@ -64,10 +73,16 @@ partial class Form1
         this.tabPageUsuarios.Text = "Usuarios";
         this.tabPageUsuarios.BackColor = System.Drawing.SystemColors.Control;
         
+        // Tab: Préstamos
+        this.tabPagePrestamos = new TabPage();
+        this.tabControlMain.Controls.Add(this.tabPagePrestamos);
+        this.tabPagePrestamos.Text = "Préstamos";
+        this.tabPagePrestamos.BackColor = System.Drawing.SystemColors.Control;
+        
         // DataGridView
         this.dataGridViewLibros = new DataGridView();
         this.dataGridViewLibros.Location = new System.Drawing.Point(12, 40);
-        this.dataGridViewLibros.Size = new System.Drawing.Size(760, 200);
+        this.dataGridViewLibros.Size = new System.Drawing.Size(580, 200);
         this.dataGridViewLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         this.dataGridViewLibros.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
         this.dataGridViewLibros.BorderStyle = BorderStyle.Fixed3D;
@@ -111,8 +126,8 @@ partial class Form1
         usuariosPanelY += 35;
         this.dataGridViewUsuarios = new DataGridView();
         this.dataGridViewUsuarios.Location = new System.Drawing.Point(usuariosPanelX, usuariosPanelY);
-        this.dataGridViewUsuarios.Size = new System.Drawing.Size(500, 200);
-        this.dataGridViewUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        this.dataGridViewUsuarios.Size = new System.Drawing.Size(580, 200);
+        this.dataGridViewUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         this.dataGridViewUsuarios.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
         this.dataGridViewUsuarios.BorderStyle = BorderStyle.Fixed3D;
         this.dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -128,9 +143,50 @@ partial class Form1
         this.tabPageUsuarios.Controls.Add(this.btnEditarUsuario);
         this.tabPageUsuarios.Controls.Add(this.btnEliminarUsuario);
         
+        // ========== PRÉSTAMOS TAB ==========
+        int prestamosPanelX = 12;
+        int prestamosPanelY = 12;
+        
+        // Title Label
+        this.labelTituloPrestamos = new Label();
+        this.labelTituloPrestamos.Text = "Gestionar Préstamos";
+        this.labelTituloPrestamos.Location = new System.Drawing.Point(prestamosPanelX, prestamosPanelY);
+        this.labelTituloPrestamos.Size = new System.Drawing.Size(400, 25);
+        this.labelTituloPrestamos.Font = new System.Drawing.Font(this.Font.FontFamily, 12, System.Drawing.FontStyle.Bold);
+        this.tabPagePrestamos.Controls.Add(this.labelTituloPrestamos);
+        
+        // ComboBox for Users
+        prestamosPanelY += 35;
+        this.comboBoxUsuarios = new ComboBox();
+        this.comboBoxUsuarios.Location = new System.Drawing.Point(prestamosPanelX, prestamosPanelY);
+        this.comboBoxUsuarios.Size = new System.Drawing.Size(300, 25);
+        this.comboBoxUsuarios.DropDownStyle = ComboBoxStyle.DropDownList;
+        this.tabPagePrestamos.Controls.Add(this.comboBoxUsuarios);
+        
+        // DataGridView for Préstamos
+        prestamosPanelY += 35;
+        this.dataGridViewPrestamos = new DataGridView();
+        this.dataGridViewPrestamos.Location = new System.Drawing.Point(prestamosPanelX, prestamosPanelY);
+        this.dataGridViewPrestamos.Size = new System.Drawing.Size(580, 200);
+        this.dataGridViewPrestamos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        this.dataGridViewPrestamos.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
+        this.dataGridViewPrestamos.BorderStyle = BorderStyle.Fixed3D;
+        this.dataGridViewPrestamos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        this.tabPagePrestamos.Controls.Add(this.dataGridViewPrestamos);
+        
+        // Buttons for Préstamos
+        prestamosPanelY += 210;  // 100px distance from DataGridView
+        this.btnAgregarPrestamo = CreateButton("Agregar", prestamosPanelX, prestamosPanelY, btnWidth, btnHeight);
+        this.btnEditarPrestamo = CreateButton("Editar", prestamosPanelX + btnSpacing, prestamosPanelY, btnWidth, btnHeight);
+        this.btnEliminarPrestamo = CreateButton("Eliminar", prestamosPanelX + btnSpacing * 2, prestamosPanelY, btnWidth, btnHeight);
+        
+        this.tabPagePrestamos.Controls.Add(this.btnAgregarPrestamo);
+        this.tabPagePrestamos.Controls.Add(this.btnEditarPrestamo);
+        this.tabPagePrestamos.Controls.Add(this.btnEliminarPrestamo);
+        
         // Form properties
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(800, 500);
+        this.ClientSize = new System.Drawing.Size(620, 500);
         this.Text = "Sistema de Gestión de Biblioteca";
         this.StartPosition = FormStartPosition.CenterScreen;
         this.Controls.Add(this.tabControlMain);

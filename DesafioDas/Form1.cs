@@ -17,6 +17,9 @@ public partial class Form1 : Form
         btnAgregarUsuario.Click += BtnAgregarUsuario_Click;
         btnEditarUsuario.Click += BtnEditarUsuario_Click;
         btnEliminarUsuario.Click += BtnEliminarUsuario_Click;
+        btnAgregarPrestamo.Click += BtnAgregarPrestamo_Click;
+        btnEditarPrestamo.Click += BtnEditarPrestamo_Click;
+        btnEliminarPrestamo.Click += BtnEliminarPrestamo_Click;
     }
     
     private void InitializeDataGridView()
@@ -28,10 +31,10 @@ public partial class Form1 : Form
         dataGridViewLibros.Columns.Add("Año", "Año");
         dataGridViewLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         
-        // Adjust column widths - Título and Autor 2.5x wider
+        // Adjust column widths - ID 40px
         dataGridViewLibros.Columns["ID"].Width = 40;
-        dataGridViewLibros.Columns["Titulo"].Width = 200;  // 2.5x wider
-        dataGridViewLibros.Columns["Autor"].Width = 200;   // 2.5x wider
+        dataGridViewLibros.Columns["Titulo"].Width = 150;
+        dataGridViewLibros.Columns["Autor"].Width = 150;
         dataGridViewLibros.Columns["Año"].Width = 60;
         
         dataGridViewUsuarios.Columns.Clear();
@@ -39,6 +42,19 @@ public partial class Form1 : Form
         dataGridViewUsuarios.Columns.Add("Nombre", "Nombre");
         dataGridViewUsuarios.Columns.Add("CorreoElectronico", "Correo Electrónico");
         dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        
+        // Adjust column widths - ID 40px
+        dataGridViewUsuarios.Columns["ID"].Width = 40;
+        
+        dataGridViewPrestamos.Columns.Clear();
+        dataGridViewPrestamos.Columns.Add("ID", "ID");
+        dataGridViewPrestamos.Columns.Add("Libro", "Libro");
+        dataGridViewPrestamos.Columns.Add("FechaPrestamo", "Fecha-Préstamo");
+        dataGridViewPrestamos.Columns.Add("FechaDevolucion", "Fecha-Devolución");
+        dataGridViewPrestamos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        
+        // Adjust column widths - ID 40px
+        dataGridViewPrestamos.Columns["ID"].Width = 40;
     }
     
     private void BtnAgregar_Click(object? sender, EventArgs e)
@@ -94,6 +110,39 @@ public partial class Form1 : Form
         }
         // TODO: Implement delete logic
         MessageBox.Show("Funcionalidad de eliminación por implementar", "Eliminar Usuario");
+    }
+    
+    // ========== PRÉSTAMOS EVENT HANDLERS ==========
+    private void BtnAgregarPrestamo_Click(object? sender, EventArgs e)
+    {
+        if (comboBoxUsuarios.SelectedIndex == -1)
+        {
+            MessageBox.Show("Seleccione un usuario", "Advertencia");
+            return;
+        }
+        MessageBox.Show("Modo agregar préstamo: Complete los datos", "Agregar Préstamo");
+    }
+    
+    private void BtnEditarPrestamo_Click(object? sender, EventArgs e)
+    {
+        if (dataGridViewPrestamos.SelectedRows.Count == 0)
+        {
+            MessageBox.Show("Seleccione un préstamo para editar", "Advertencia");
+            return;
+        }
+        // TODO: Implement edit logic
+        MessageBox.Show("Funcionalidad de edición por implementar", "Editar Préstamo");
+    }
+    
+    private void BtnEliminarPrestamo_Click(object? sender, EventArgs e)
+    {
+        if (dataGridViewPrestamos.SelectedRows.Count == 0)
+        {
+            MessageBox.Show("Seleccione un préstamo para eliminar", "Advertencia");
+            return;
+        }
+        // TODO: Implement delete logic
+        MessageBox.Show("Funcionalidad de eliminación por implementar", "Eliminar Préstamo");
     }
 
 }
