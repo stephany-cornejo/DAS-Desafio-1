@@ -8,8 +8,8 @@ namespace DesafioDas.Models
     public class clsUsuarios
     {
         public int Id { get; set; }
-        public string FullName { get; set; }
-        public string Correo { get; set; }
+        public string FullName { get; set; } = string.Empty;
+        public string Correo { get; set; } = string.Empty;
 
         private bool DatosCompletos;
         private string ultimoError = string.Empty;
