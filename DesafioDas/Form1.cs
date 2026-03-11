@@ -467,6 +467,7 @@ public partial class Form1 : Form
 
     private void BtnEliminarPrestamo_Click(object? sender, EventArgs e)
     {
+        LimpiarInputsPrestamos();
         if (dataGridViewPrestamos.SelectedRows.Count == 0)
         {
             MessageBox.Show("Seleccione un préstamo para eliminar", "Advertencia");
