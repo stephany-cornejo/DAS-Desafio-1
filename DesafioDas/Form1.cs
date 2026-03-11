@@ -8,7 +8,6 @@ namespace DesafioDas;
 
 public partial class Form1 : Form
 {
-    // Listas estáticas para almacenamiento en memoria
     public static List<clsUsuarios> usuarios = new List<clsUsuarios>();
     public static List<clsLibros> libros = new List<clsLibros>();
     public static List<clsPrestamos> prestamos = new List<clsPrestamos>();
@@ -127,6 +126,16 @@ public partial class Form1 : Form
 
         prestamos.Add(new clsPrestamos(1, 1, "1984", "Juan Pérez", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(7)) { Id = nextIdPrestamo++ });
         prestamos.Add(new clsPrestamos(2, 2, "Don Quijote", "María García", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(2)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(7, 5, "Romeo y Julieta", "Maribel Guardado", DateTime.Now.AddDays(-2), DateTime.Now.AddDays(17)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(10, 7, "Frankenstein", "Lily Acosta", DateTime.Now.AddDays(-20), DateTime.Now.AddDays(1)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(1, 5, "Don Quijote", "Maribel Guardado", DateTime.Now.AddDays(-8), DateTime.Now.AddDays(5)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(6, 2, "Los Pasos Perdidos", "Juan Pérez", DateTime.Now.AddDays(-12), DateTime.Now.AddDays(15)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(4, 7, "Delirios", "Lily Acosta", DateTime.Now.AddDays(-29), DateTime.Now.AddDays(-3)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(7, 8, "Romeo y Julieta", "Ana Castro", DateTime.Now.AddDays(-28), DateTime.Now.AddDays(-1)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(13, 10, "Jane Eyre", "José Bonilla", DateTime.Now.AddDays(-2), DateTime.Now.AddDays(12)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(10, 9, "Frankenstein", "Bryan Castillo", DateTime.Now.AddDays(-3), DateTime.Now.AddDays(16)) { Id = nextIdPrestamo++ });
+
+
 
         ActualizarDataGridViews();
     }
@@ -176,7 +185,6 @@ public partial class Form1 : Form
 
     private void ActualizarComboBoxes()
     {
-        // ComboBox Usuarios en Préstamos (con "Todos los préstamos" como default)
         comboBoxUsuarios.DataSource = null;
         var usuariosConTodos = new List<clsUsuarios> { new clsUsuarios("Todos los préstamos", "todas@todas.com") { Id = -1 } };
         usuariosConTodos.AddRange(usuarios);
@@ -185,7 +193,6 @@ public partial class Form1 : Form
         comboBoxUsuarios.ValueMember = "Id";
         comboBoxUsuarios.SelectedIndex = 0;
 
-        // ComboBox Usuario en inputs Préstamos
         comboBoxPrestamoUsuario.DataSource = null;
         var usuariosConDefault = new List<clsUsuarios> { new clsUsuarios("", "") { Id = -1 } };
         usuariosConDefault.AddRange(usuarios);
@@ -194,7 +201,6 @@ public partial class Form1 : Form
         comboBoxPrestamoUsuario.ValueMember = "Id";
         comboBoxPrestamoUsuario.SelectedIndex = 0;
 
-        // ComboBox Libro en inputs Préstamos
         comboBoxPrestamoLibro.DataSource = null;
         var librosConDefault = new List<clsLibros> { new clsLibros("", "", "") { Id = -1 } };
         librosConDefault.AddRange(libros);
@@ -267,7 +273,6 @@ public partial class Form1 : Form
 
         if (idLibroEnEdicion == -1)
         {
-            // Agregar nuevo libro
             var nuevoLibro = new clsLibros(textBoxLibroTitulo.Text, textBoxLibroAutor.Text, textBoxLibroAño.Text);
             nuevoLibro.Id = nextIdLibro++;
             libros.Add(nuevoLibro);
@@ -275,7 +280,6 @@ public partial class Form1 : Form
         }
         else
         {
-            // Editar libro existente
             var libro = libros.FirstOrDefault(l => l.Id == idLibroEnEdicion);
             if (libro != null)
             {
@@ -384,7 +388,6 @@ public partial class Form1 : Form
 
         if (idUsuarioEnEdicion == -1)
         {
-            // Agregar nuevo usuario
             var nuevoUsuario = new clsUsuarios(textBoxUsuarioNombre.Text, textBoxUsuarioCorreo.Text);
             nuevoUsuario.Id = nextIdUsuario++;
             usuarios.Add(nuevoUsuario);
@@ -392,7 +395,6 @@ public partial class Form1 : Form
         }
         else
         {
-            // Editar usuario existente
             var usuario = usuarios.FirstOrDefault(u => u.Id == idUsuarioEnEdicion);
             if (usuario != null)
             {
@@ -506,7 +508,6 @@ public partial class Form1 : Form
 
         if (idPrestamoEnEdicion == -1)
         {
-            // Agregar nuevo préstamo
             var nuevoPrestamo = new clsPrestamos(idLibro, idUsuario, libro.Titulo, usuario.FullName,
                 dateTimePickerPrestamoFechaPrestamo.Value, dateTimePickerPrestamoFechaDevolucion.Value);
             nuevoPrestamo.Id = nextIdPrestamo++;
@@ -515,7 +516,6 @@ public partial class Form1 : Form
         }
         else
         {
-            // Editar préstamo existente
             var prestamo = prestamos.FirstOrDefault(p => p.Id == idPrestamoEnEdicion);
             if (prestamo != null)
             {

@@ -2,18 +2,15 @@
 
 partial class Form1
 {
-    /// <summary>
-    ///  Required designer variable.
-    /// </summary>
+
     private System.ComponentModel.IContainer components = null;
 
-    // TabControl
     private TabControl tabControlMain;
     private TabPage tabPageLibros;
     private TabPage tabPageUsuarios;
     private TabPage tabPagePrestamos;
 
-    // Libros Tab Controls
+    // Libros Controles
     private DataGridView dataGridViewLibros;
     private Label labelTituloLibros;
     private Button btnAgregar;
@@ -27,7 +24,7 @@ partial class Form1
     private Label labelLibroAño;
     private TextBox textBoxLibroAño;
     
-    // Usuarios Tab Controls
+    // Usuarios Controles
     private Label labelTituloUsuarios;
     private DataGridView dataGridViewUsuarios;
     private Button btnAgregarUsuario;
@@ -39,7 +36,7 @@ partial class Form1
     private Label labelUsuarioCorreo;
     private TextBox textBoxUsuarioCorreo;
     
-    // Préstamos Tab Controls
+    // Préstamos Controles
     private Label labelTituloPrestamos;
     private ComboBox comboBoxUsuarios;
     private DataGridView dataGridViewPrestamos;
@@ -79,13 +76,13 @@ partial class Form1
     {
         this.components = new System.ComponentModel.Container();
         
-        // Main TabControl
+        
         this.tabControlMain = new TabControl();
         this.tabPageLibros = new TabPage();
         this.tabPageUsuarios = new TabPage();
         this.tabPagePrestamos = new TabPage();
         
-        // Add tabs
+        
         this.tabControlMain.Controls.Add(this.tabPageLibros);
         this.tabControlMain.Controls.Add(this.tabPageUsuarios);
         this.tabControlMain.Controls.Add(this.tabPagePrestamos);
@@ -112,7 +109,6 @@ partial class Form1
         this.dataGridViewLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         this.tabPageLibros.Controls.Add(this.dataGridViewLibros);
         
-        // Input fields for Libros (HIDDEN by default)
         int libroInputY = 250;
         
         this.labelLibroTitulo = new Label();
@@ -154,7 +150,6 @@ partial class Form1
         this.textBoxLibroAño.Visible = false;
         this.tabPageLibros.Controls.Add(this.textBoxLibroAño);
         
-        // Buttons for Libros
         this.btnAgregar = new Button();
         this.btnAgregar.Text = "Agregar";
         this.btnAgregar.Location = new System.Drawing.Point(12, libroInputY + 110);
@@ -198,7 +193,6 @@ partial class Form1
         this.dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         this.tabPageUsuarios.Controls.Add(this.dataGridViewUsuarios);
         
-        // Input fields for Usuarios (HIDDEN by default)
         int usuarioInputY = 255;
         
         this.labelUsuarioNombre = new Label();
@@ -227,7 +221,6 @@ partial class Form1
         this.textBoxUsuarioCorreo.Visible = false;
         this.tabPageUsuarios.Controls.Add(this.textBoxUsuarioCorreo);
         
-        // Buttons for Usuarios
         this.btnAgregarUsuario = new Button();
         this.btnAgregarUsuario.Text = "Agregar";
         this.btnAgregarUsuario.Location = new System.Drawing.Point(12, usuarioInputY + 75);
@@ -261,7 +254,6 @@ partial class Form1
         this.labelTituloPrestamos.Font = new System.Drawing.Font(this.Font.FontFamily, 12, System.Drawing.FontStyle.Bold);
         this.tabPagePrestamos.Controls.Add(this.labelTituloPrestamos);
         
-        // ComboBox for selecting user
         this.comboBoxUsuarios = new ComboBox();
         this.comboBoxUsuarios.Location = new System.Drawing.Point(12, 47);
         this.comboBoxUsuarios.Size = new System.Drawing.Size(300, 25);
@@ -278,7 +270,6 @@ partial class Form1
         this.dataGridViewPrestamos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         this.tabPagePrestamos.Controls.Add(this.dataGridViewPrestamos);
         
-        // Input fields for Préstamos (HIDDEN by default)
         int prestamoInputY = 290;
         
         this.labelPrestamoUsuario = new Label();
@@ -335,7 +326,6 @@ partial class Form1
         this.dateTimePickerPrestamoFechaDevolucion.Visible = false;
         this.tabPagePrestamos.Controls.Add(this.dateTimePickerPrestamoFechaDevolucion);
         
-        // Buttons for Préstamos
         this.btnAgregarPrestamo = new Button();
         this.btnAgregarPrestamo.Text = "Agregar";
         this.btnAgregarPrestamo.Location = new System.Drawing.Point(12, prestamoInputY + 145);
@@ -361,7 +351,6 @@ partial class Form1
         this.btnGuardarPrestamo.Visible = false;
         this.tabPagePrestamos.Controls.Add(this.btnGuardarPrestamo);
         
-        // Form properties
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(620, 500);
         this.Text = "Sistema de Gestión de Biblioteca";
