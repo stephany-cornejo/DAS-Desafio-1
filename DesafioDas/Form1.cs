@@ -162,15 +162,21 @@ public partial class Form1 : Form
 
         // ComboBox Usuario en inputs Préstamos
         comboBoxPrestamoUsuario.DataSource = null;
-        comboBoxPrestamoUsuario.DataSource = usuarios.ToList();
+        var usuariosConDefault = new List<clsUsuarios> { new clsUsuarios("Ver usuarios", "") { Id = -1 } };
+        usuariosConDefault.AddRange(usuarios);
+        comboBoxPrestamoUsuario.DataSource = usuariosConDefault;
         comboBoxPrestamoUsuario.DisplayMember = "FullName";
         comboBoxPrestamoUsuario.ValueMember = "Id";
+        comboBoxPrestamoUsuario.SelectedIndex = 0;
 
         // ComboBox Libro en inputs Préstamos
         comboBoxPrestamoLibro.DataSource = null;
-        comboBoxPrestamoLibro.DataSource = libros.ToList();
+        var librosConDefault = new List<clsLibros> { new clsLibros("Ver libros", "", "") { Id = -1 } };
+        librosConDefault.AddRange(libros);
+        comboBoxPrestamoLibro.DataSource = librosConDefault;
         comboBoxPrestamoLibro.DisplayMember = "Titulo";
         comboBoxPrestamoLibro.ValueMember = "Id";
+        comboBoxPrestamoLibro.SelectedIndex = 0;
     }
 
     // ========== LIBROS ==========
@@ -460,14 +466,15 @@ public partial class Form1 : Form
 
     private void BtnGuardarPrestamo_Click(object? sender, EventArgs e)
     {
-        if (comboBoxPrestamoUsuario.SelectedIndex == -1 || comboBoxPrestamoLibro.SelectedIndex == -1)
+        int idUsuario = (int)(comboBoxPrestamoUsuario.SelectedValue ?? -1);
+        int idLibro = (int)(comboBoxPrestamoLibro.SelectedValue ?? -1);
+
+        if (idUsuario == -1 || idLibro == -1)
         {
             MessageBox.Show("Seleccione un usuario y un libro", "Error");
             return;
         }
 
-        int idUsuario = (int)(comboBoxPrestamoUsuario.SelectedValue ?? -1);
-        int idLibro = (int)(comboBoxPrestamoLibro.SelectedValue ?? -1);
         var usuario = usuarios.FirstOrDefault(u => u.Id == idUsuario);
         var libro = libros.FirstOrDefault(l => l.Id == idLibro);
 
@@ -534,8 +541,8 @@ public partial class Form1 : Form
 
     private void LimpiarInputsPrestamos()
     {
-        comboBoxPrestamoUsuario.SelectedIndex = -1;
-        comboBoxPrestamoLibro.SelectedIndex = -1;
+        comboBoxPrestamoUsuario.SelectedIndex = 0;
+        comboBoxPrestamoLibro.SelectedIndex = 0;
         dateTimePickerPrestamoFechaPrestamo.Value = DateTime.Now;
         dateTimePickerPrestamoFechaDevolucion.Value = DateTime.Now.AddDays(14);
     }
