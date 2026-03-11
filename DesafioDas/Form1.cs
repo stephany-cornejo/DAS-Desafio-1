@@ -45,6 +45,8 @@ public partial class Form1 : Form
         btnEditarPrestamo.Click += BtnEditarPrestamo_Click;
         btnEliminarPrestamo.Click += BtnEliminarPrestamo_Click;
         btnGuardarPrestamo.Click += BtnGuardarPrestamo_Click;
+
+        comboBoxUsuarios.SelectedIndexChanged += ComboBoxUsuarios_SelectedIndexChanged;
     }
 
     private void InitializeDataGridView()
@@ -156,8 +158,17 @@ public partial class Form1 : Form
 
     private void ActualizarDataGridViewPrestamos()
     {
+        ActualizarDataGridViewPrestamos(-1);
+    }
+
+    private void ActualizarDataGridViewPrestamos(int idUsuarioFiltro)
+    {
         dataGridViewPrestamos.Rows.Clear();
-        foreach (var prestamo in prestamos.OrderBy(p => p.Id))
+        var prestamosFiltrados = idUsuarioFiltro == -1 
+            ? prestamos.OrderBy(p => p.Id) 
+            : prestamos.Where(p => p.IdUsuario == idUsuarioFiltro).OrderBy(p => p.Id);
+        
+        foreach (var prestamo in prestamosFiltrados)
         {
             dataGridViewPrestamos.Rows.Add(prestamo.Id, prestamo.NombreLibro, prestamo.FechaPrestamo.ToShortDateString(), prestamo.FechaDevolucion.ToShortDateString());
         }
@@ -165,15 +176,18 @@ public partial class Form1 : Form
 
     private void ActualizarComboBoxes()
     {
-        // ComboBox Usuarios en Préstamos
+        // ComboBox Usuarios en Préstamos (con "Todos los préstamos" como default)
         comboBoxUsuarios.DataSource = null;
-        comboBoxUsuarios.DataSource = usuarios.ToList();
+        var usuariosConTodos = new List<clsUsuarios> { new clsUsuarios("Todos los préstamos", "todas@todas.com") { Id = -1 } };
+        usuariosConTodos.AddRange(usuarios);
+        comboBoxUsuarios.DataSource = usuariosConTodos;
         comboBoxUsuarios.DisplayMember = "FullName";
         comboBoxUsuarios.ValueMember = "Id";
+        comboBoxUsuarios.SelectedIndex = 0;
 
         // ComboBox Usuario en inputs Préstamos
         comboBoxPrestamoUsuario.DataSource = null;
-        var usuariosConDefault = new List<clsUsuarios> { new clsUsuarios("Ver usuarios", "") { Id = -1 } };
+        var usuariosConDefault = new List<clsUsuarios> { new clsUsuarios("", "") { Id = -1 } };
         usuariosConDefault.AddRange(usuarios);
         comboBoxPrestamoUsuario.DataSource = usuariosConDefault;
         comboBoxPrestamoUsuario.DisplayMember = "FullName";
@@ -182,7 +196,7 @@ public partial class Form1 : Form
 
         // ComboBox Libro en inputs Préstamos
         comboBoxPrestamoLibro.DataSource = null;
-        var librosConDefault = new List<clsLibros> { new clsLibros("Ver libros", "", "") { Id = -1 } };
+        var librosConDefault = new List<clsLibros> { new clsLibros("", "", "") { Id = -1 } };
         librosConDefault.AddRange(libros);
         comboBoxPrestamoLibro.DataSource = librosConDefault;
         comboBoxPrestamoLibro.DisplayMember = "Titulo";
@@ -420,12 +434,6 @@ public partial class Form1 : Form
     // ========== PRÉSTAMOS ==========
     private void BtnAgregarPrestamo_Click(object? sender, EventArgs e)
     {
-        if (comboBoxUsuarios.SelectedIndex == -1)
-        {
-            MessageBox.Show("Seleccione un usuario", "Advertencia");
-            return;
-        }
-
         idPrestamoEnEdicion = -1;
         LimpiarInputsPrestamos();
         MostrarInputsPrestamos();
@@ -556,5 +564,13 @@ public partial class Form1 : Form
         comboBoxPrestamoLibro.SelectedIndex = 0;
         dateTimePickerPrestamoFechaPrestamo.Value = DateTime.Now;
         dateTimePickerPrestamoFechaDevolucion.Value = DateTime.Now.AddDays(14);
+    }
+
+    private void ComboBoxUsuarios_SelectedIndexChanged(object? sender, EventArgs e)
+    {
+        if (comboBoxUsuarios.SelectedValue is int idUsuario)
+        {
+            ActualizarDataGridViewPrestamos(idUsuario);
+        }
     }
 }
