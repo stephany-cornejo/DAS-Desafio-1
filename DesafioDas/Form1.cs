@@ -230,7 +230,7 @@ public partial class Form1 : Form
             string.IsNullOrWhiteSpace(textBoxLibroAutor.Text) || 
             string.IsNullOrWhiteSpace(textBoxLibroAño.Text))
         {
-            MessageBox.Show("Complete todos los campos", "Validación");
+            MessageBox.Show("Complete todos los campos e intente de nuevo", "Error");
             return;
         }
 
@@ -347,7 +347,7 @@ public partial class Form1 : Form
         if (string.IsNullOrWhiteSpace(textBoxUsuarioNombre.Text) || 
             string.IsNullOrWhiteSpace(textBoxUsuarioCorreo.Text))
         {
-            MessageBox.Show("Complete todos los campos", "Validación");
+            MessageBox.Show("Complete todos los campos e intente de nuevo", "Error");
             return;
         }
 
@@ -462,7 +462,7 @@ public partial class Form1 : Form
     {
         if (comboBoxPrestamoUsuario.SelectedIndex == -1 || comboBoxPrestamoLibro.SelectedIndex == -1)
         {
-            MessageBox.Show("Seleccione un usuario y un libro", "Validación");
+            MessageBox.Show("Seleccione un usuario y un libro", "Error");
             return;
         }
 
