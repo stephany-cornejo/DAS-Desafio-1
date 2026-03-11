@@ -51,6 +51,7 @@ public partial class Form1 : Form
     {
         // Libros
         dataGridViewLibros.Columns.Clear();
+        dataGridViewLibros.RowHeadersVisible = false;
         dataGridViewLibros.Columns.Add("ID", "ID");
         dataGridViewLibros.Columns.Add("Titulo", "Título");
         dataGridViewLibros.Columns.Add("Autor", "Autor");
@@ -58,21 +59,27 @@ public partial class Form1 : Form
         dataGridViewLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         
         dataGridViewLibros.Columns["ID"].Width = 40;
-        dataGridViewLibros.Columns["Titulo"].Width = 150;
-        dataGridViewLibros.Columns["Autor"].Width = 150;
-        dataGridViewLibros.Columns["Año"].Width = 60;
+        dataGridViewLibros.Columns["ID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        dataGridViewLibros.Columns["Titulo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        dataGridViewLibros.Columns["Autor"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        dataGridViewLibros.Columns["Año"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         
         // Usuarios
         dataGridViewUsuarios.Columns.Clear();
+        dataGridViewUsuarios.RowHeadersVisible = false;
         dataGridViewUsuarios.Columns.Add("ID", "ID");
         dataGridViewUsuarios.Columns.Add("Nombre", "Nombre");
         dataGridViewUsuarios.Columns.Add("CorreoElectronico", "Correo Electrónico");
         dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         
         dataGridViewUsuarios.Columns["ID"].Width = 40;
+        dataGridViewUsuarios.Columns["ID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        dataGridViewUsuarios.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        dataGridViewUsuarios.Columns["CorreoElectronico"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         
         // Préstamos
         dataGridViewPrestamos.Columns.Clear();
+        dataGridViewPrestamos.RowHeadersVisible = false;
         dataGridViewPrestamos.Columns.Add("ID", "ID");
         dataGridViewPrestamos.Columns.Add("Libro", "Libro");
         dataGridViewPrestamos.Columns.Add("FechaPrestamo", "Fecha-Préstamo");
@@ -80,6 +87,10 @@ public partial class Form1 : Form
         dataGridViewPrestamos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         
         dataGridViewPrestamos.Columns["ID"].Width = 40;
+        dataGridViewPrestamos.Columns["ID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        dataGridViewPrestamos.Columns["Libro"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        dataGridViewPrestamos.Columns["FechaPrestamo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        dataGridViewPrestamos.Columns["FechaDevolucion"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
     }
 
     private void CargarDatosIniciales()
