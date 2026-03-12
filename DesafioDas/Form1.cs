@@ -583,7 +583,7 @@ public partial class Form1 : Form
         }
     }
 
-    // ========== ESTADÍSTICAS - GRÁFICOS ==========
+    // ========== ESTADÍSTICAS ==========
     public void DibujarGraficos()
     {
         DibujarGraficoUsuariosMasActivos();
@@ -592,7 +592,6 @@ public partial class Form1 : Form
 
     private void DibujarGraficoUsuariosMasActivos()
     {
-        // Contar préstamos por usuario
         var usuariosPrestamos = prestamos
             .GroupBy(p => p.IdUsuario)
             .Select(g => new
@@ -602,10 +601,9 @@ public partial class Form1 : Form
                 CantidadPrestamos = g.Count()
             })
             .OrderByDescending(x => x.CantidadPrestamos)
-            .Take(5) // Top 5 usuarios más activos
+            .Take(5) 
             .ToList();
 
-        // Crear bitmap para el gráfico
         Bitmap bitmap = new Bitmap(pictureBoxUsuariosMasActivos.Width, pictureBoxUsuariosMasActivos.Height);
         using (Graphics g = Graphics.FromImage(bitmap))
         {
@@ -619,7 +617,6 @@ public partial class Form1 : Form
             }
             else
             {
-                // Configurar parámetros del gráfico
                 int margenIzquierdo = 40;
                 int margenInferior = 60;
                 int margenSuperior = 20;
@@ -631,22 +628,19 @@ public partial class Form1 : Form
                 float maxValor = usuariosPrestamos.Max(x => x.CantidadPrestamos);
                 float altoBarraUnidad = alto / maxValor;
 
-                Color colorBarras = Color.FromArgb(173, 216, 230); // Pastel azul
+                Color colorBarras = Color.FromArgb(173, 216, 230); 
                 Pen penEje = new Pen(Color.Black, 1);
                 Font fuente = new Font("Arial", 8);
                 Font fuenteEtiqueta = new Font("Arial", 7);
 
-                // Dibujar ejes
                 g.DrawLine(penEje, margenIzquierdo, bitmap.Height - margenInferior, 
-                    bitmap.Width - margenDerecho, bitmap.Height - margenInferior); // Eje X
+                    bitmap.Width - margenDerecho, bitmap.Height - margenInferior); 
                 g.DrawLine(penEje, margenIzquierdo, margenSuperior, 
-                    margenIzquierdo, bitmap.Height - margenInferior); // Eje Y
+                    margenIzquierdo, bitmap.Height - margenInferior); 
 
-                // Ancho de cada barra con espaciado
                 float anchoBarra = ancho / (float)(usuariosPrestamos.Count * 1.5f);
                 float espacioTotal = ancho / (float)usuariosPrestamos.Count;
 
-                // Dibujar barras
                 for (int i = 0; i < usuariosPrestamos.Count; i++)
                 {
                     float xInicio = margenIzquierdo + (i * espacioTotal) + ((espacioTotal - anchoBarra) / 2);
@@ -660,13 +654,11 @@ public partial class Form1 : Form
 
                     g.DrawRectangle(Pens.Black, xInicio, yInicio, anchoBarra, altoBarra);
 
-                    // Etiqueta con número de préstamos (encima de la barra)
                     string etiqueta = usuariosPrestamos[i].CantidadPrestamos.ToString();
                     SizeF tamanioTexto = g.MeasureString(etiqueta, fuenteEtiqueta);
                     g.DrawString(etiqueta, fuenteEtiqueta, Brushes.Black, 
                         xInicio + (anchoBarra / 2) - (tamanioTexto.Width / 2), yInicio - 15);
 
-                    // Nombre del usuario en eje X (debajo)
                     string nombreCorto = usuariosPrestamos[i].NombreUsuario;
                     if (nombreCorto.Length > 6)
                         nombreCorto = nombreCorto.Substring(0, 6) + ".";
@@ -688,7 +680,6 @@ public partial class Form1 : Form
 
     private void DibujarGraficoLibrosMasPrestados()
     {
-        // Contar préstamos por libro
         var librosPrestamos = prestamos
             .GroupBy(p => p.IdLibro)
             .Select(g => new
@@ -698,10 +689,9 @@ public partial class Form1 : Form
                 CantidadPrestamos = g.Count()
             })
             .OrderByDescending(x => x.CantidadPrestamos)
-            .Take(5) // Top 5 libros más prestados
+            .Take(5) 
             .ToList();
 
-        // Crear bitmap para el gráfico
         Bitmap bitmap = new Bitmap(pictureBoxLibrosMasPrestados.Width, pictureBoxLibrosMasPrestados.Height);
         using (Graphics g = Graphics.FromImage(bitmap))
         {
@@ -715,7 +705,6 @@ public partial class Form1 : Form
             }
             else
             {
-                // Configurar parámetros del gráfico
                 int margenIzquierdo = 40;
                 int margenInferior = 60;
                 int margenSuperior = 20;
@@ -727,22 +716,19 @@ public partial class Form1 : Form
                 float maxValor = librosPrestamos.Max(x => x.CantidadPrestamos);
                 float altoBarraUnidad = alto / maxValor;
 
-                Color colorBarras = Color.FromArgb(173, 216, 230); // Pastel azul
+                Color colorBarras = Color.FromArgb(173, 216, 230);
                 Pen penEje = new Pen(Color.Black, 1);
                 Font fuente = new Font("Arial", 8);
                 Font fuenteEtiqueta = new Font("Arial", 7);
 
-                // Dibujar ejes
                 g.DrawLine(penEje, margenIzquierdo, bitmap.Height - margenInferior, 
-                    bitmap.Width - margenDerecho, bitmap.Height - margenInferior); // Eje X
+                    bitmap.Width - margenDerecho, bitmap.Height - margenInferior); 
                 g.DrawLine(penEje, margenIzquierdo, margenSuperior, 
-                    margenIzquierdo, bitmap.Height - margenInferior); // Eje Y
+                    margenIzquierdo, bitmap.Height - margenInferior); 
 
-                // Ancho de cada barra con espaciado
                 float anchoBarra = ancho / (float)(librosPrestamos.Count * 1.5f);
                 float espacioTotal = ancho / (float)librosPrestamos.Count;
 
-                // Dibujar barras
                 for (int i = 0; i < librosPrestamos.Count; i++)
                 {
                     float xInicio = margenIzquierdo + (i * espacioTotal) + ((espacioTotal - anchoBarra) / 2);
@@ -756,13 +742,11 @@ public partial class Form1 : Form
 
                     g.DrawRectangle(Pens.Black, xInicio, yInicio, anchoBarra, altoBarra);
 
-                    // Etiqueta con número de préstamos (encima de la barra)
                     string etiqueta = librosPrestamos[i].CantidadPrestamos.ToString();
                     SizeF tamanioTexto = g.MeasureString(etiqueta, fuenteEtiqueta);
                     g.DrawString(etiqueta, fuenteEtiqueta, Brushes.Black, 
                         xInicio + (anchoBarra / 2) - (tamanioTexto.Width / 2), yInicio - 15);
 
-                    // Nombre del libro en eje X (debajo)
                     string nombreCorto = librosPrestamos[i].NombreLibro;
                     if (nombreCorto.Length > 6)
                         nombreCorto = nombreCorto.Substring(0, 6) + ".";
