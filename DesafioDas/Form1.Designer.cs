@@ -9,6 +9,7 @@ partial class Form1
     private TabPage tabPageLibros;
     private TabPage tabPageUsuarios;
     private TabPage tabPagePrestamos;
+    private TabPage tabPageEstadisticas;
 
     // Libros Controles
     private DataGridView dataGridViewLibros;
@@ -52,6 +53,13 @@ partial class Form1
     private DateTimePicker dateTimePickerPrestamoFechaPrestamo;
     private Label labelPrestamoFechaDevolucion;
     private DateTimePicker dateTimePickerPrestamoFechaDevolucion;
+
+    // Estadísticas Controles
+    private Label labelTituloEstadisticas;
+    private PictureBox pictureBoxLibrosMasPrestados;
+    private PictureBox pictureBoxUsuariosMasActivos;
+    private Label labelGraficoLibros;
+    private Label labelGraficoUsuarios;
 
     /// <summary>
     ///  Clean up any resources being used.
@@ -350,6 +358,48 @@ partial class Form1
         this.btnGuardarPrestamo.Size = new System.Drawing.Size(90, 30);
         this.btnGuardarPrestamo.Visible = false;
         this.tabPagePrestamos.Controls.Add(this.btnGuardarPrestamo);
+        
+        // ========== ESTADÍSTICAS TAB ==========
+        this.tabPageEstadisticas = new TabPage();
+        this.tabControlMain.Controls.Add(this.tabPageEstadisticas);
+        this.tabPageEstadisticas.Text = "Estadísticas";
+        
+        this.labelTituloEstadisticas = new Label();
+        this.labelTituloEstadisticas.Text = "Estadísticas";
+        this.labelTituloEstadisticas.Location = new System.Drawing.Point(12, 12);
+        this.labelTituloEstadisticas.Size = new System.Drawing.Size(400, 25);
+        this.labelTituloEstadisticas.Font = new System.Drawing.Font(this.Font.FontFamily, 12, System.Drawing.FontStyle.Bold);
+        this.tabPageEstadisticas.Controls.Add(this.labelTituloEstadisticas);
+        
+        // Gráfico usuarios más activos
+        this.labelGraficoUsuarios = new Label();
+        this.labelGraficoUsuarios.Text = "Usuarios más activos";
+        this.labelGraficoUsuarios.Location = new System.Drawing.Point(12, 40);
+        this.labelGraficoUsuarios.Size = new System.Drawing.Size(275, 20);
+        this.labelGraficoUsuarios.Font = new System.Drawing.Font(this.Font.FontFamily, 10, System.Drawing.FontStyle.Bold);
+        this.tabPageEstadisticas.Controls.Add(this.labelGraficoUsuarios);
+        
+        this.pictureBoxUsuariosMasActivos = new PictureBox();
+        this.pictureBoxUsuariosMasActivos.Location = new System.Drawing.Point(12, 65);
+        this.pictureBoxUsuariosMasActivos.Size = new System.Drawing.Size(290, 200);
+        this.pictureBoxUsuariosMasActivos.BorderStyle = BorderStyle.None;
+        this.pictureBoxUsuariosMasActivos.BackColor = System.Drawing.Color.Transparent;
+        this.tabPageEstadisticas.Controls.Add(this.pictureBoxUsuariosMasActivos);
+        
+        // Gráfico libros más prestados
+        this.labelGraficoLibros = new Label();
+        this.labelGraficoLibros.Text = "Libros más prestados";
+        this.labelGraficoLibros.Location = new System.Drawing.Point(307, 40);
+        this.labelGraficoLibros.Size = new System.Drawing.Size(275, 20);
+        this.labelGraficoLibros.Font = new System.Drawing.Font(this.Font.FontFamily, 10, System.Drawing.FontStyle.Bold);
+        this.tabPageEstadisticas.Controls.Add(this.labelGraficoLibros);
+        
+        this.pictureBoxLibrosMasPrestados = new PictureBox();
+        this.pictureBoxLibrosMasPrestados.Location = new System.Drawing.Point(307, 65);
+        this.pictureBoxLibrosMasPrestados.Size = new System.Drawing.Size(290, 200);
+        this.pictureBoxLibrosMasPrestados.BorderStyle = BorderStyle.None;
+        this.pictureBoxLibrosMasPrestados.BackColor = System.Drawing.Color.Transparent;
+        this.tabPageEstadisticas.Controls.Add(this.pictureBoxLibrosMasPrestados);
         
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(620, 500);

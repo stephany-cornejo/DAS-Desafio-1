@@ -26,6 +26,7 @@ public partial class Form1 : Form
         InitializeDataGridView();
         CargarDatosIniciales();
         ActualizarComboBoxes();
+        DibujarGraficos();
     }
 
     private void SetupEventHandlers()
@@ -133,7 +134,14 @@ public partial class Form1 : Form
         prestamos.Add(new clsPrestamos(4, 7, "Delirios", "Lily Acosta", DateTime.Now.AddDays(-29), DateTime.Now.AddDays(-3)) { Id = nextIdPrestamo++ });
         prestamos.Add(new clsPrestamos(7, 8, "Romeo y Julieta", "Ana Castro", DateTime.Now.AddDays(-28), DateTime.Now.AddDays(-1)) { Id = nextIdPrestamo++ });
         prestamos.Add(new clsPrestamos(13, 10, "Jane Eyre", "José Bonilla", DateTime.Now.AddDays(-2), DateTime.Now.AddDays(12)) { Id = nextIdPrestamo++ });
-        prestamos.Add(new clsPrestamos(10, 9, "Frankenstein", "Bryan Castillo", DateTime.Now.AddDays(-3), DateTime.Now.AddDays(16)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(10, 9, "Frankenstein", "Bryan Castillo", DateTime.Now.AddDays(-6), DateTime.Now.AddDays(1)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(10, 5, "Frankenstein", "Maribel Guardado", DateTime.Now.AddDays(-2), DateTime.Now.AddDays(7)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(1, 13, "1984", "Kevin Trujillo", DateTime.Now.AddDays(-8), DateTime.Now.AddDays(6)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(9, 11, "Orgullo y Prejuicio", "Kimberly Chacón", DateTime.Now.AddDays(-13), DateTime.Now.AddDays(11)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(14, 6, "Cumbres Borrascosas", "Lisbeth Argueta", DateTime.Now.AddDays(-35), DateTime.Now.AddDays(-2)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(1, 9, "Don Quijote", "Bryan Castillo", DateTime.Now.AddDays(-35), DateTime.Now.AddDays(-2)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(1, 4, "Don Quijote", "Marcos Cortejo", DateTime.Now.AddDays(-35), DateTime.Now.AddDays(-2)) { Id = nextIdPrestamo++ });
+        prestamos.Add(new clsPrestamos(13, 12, "Jane Eyre", "Katerin Gonzalez", DateTime.Now.AddDays(-35), DateTime.Now.AddDays(-2)) { Id = nextIdPrestamo++ });
 
 
 
@@ -573,5 +581,204 @@ public partial class Form1 : Form
         {
             ActualizarDataGridViewPrestamos(idUsuario);
         }
+    }
+
+    // ========== ESTADÍSTICAS - GRÁFICOS ==========
+    public void DibujarGraficos()
+    {
+        DibujarGraficoUsuariosMasActivos();
+        DibujarGraficoLibrosMasPrestados();
+    }
+
+    private void DibujarGraficoUsuariosMasActivos()
+    {
+        // Contar préstamos por usuario
+        var usuariosPrestamos = prestamos
+            .GroupBy(p => p.IdUsuario)
+            .Select(g => new
+            {
+                IdUsuario = g.Key,
+                NombreUsuario = g.First().NombreUsuario,
+                CantidadPrestamos = g.Count()
+            })
+            .OrderByDescending(x => x.CantidadPrestamos)
+            .Take(5) // Top 5 usuarios más activos
+            .ToList();
+
+        // Crear bitmap para el gráfico
+        Bitmap bitmap = new Bitmap(pictureBoxUsuariosMasActivos.Width, pictureBoxUsuariosMasActivos.Height);
+        using (Graphics g = Graphics.FromImage(bitmap))
+        {
+            g.Clear(Color.Transparent);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+            if (usuariosPrestamos.Count == 0)
+            {
+                g.DrawString("No hay datos", new Font("Arial", 12), Brushes.Gray, 10, 10);
+            }
+            else
+            {
+                // Configurar parámetros del gráfico
+                int margenIzquierdo = 40;
+                int margenInferior = 60;
+                int margenSuperior = 20;
+                int margenDerecho = 10;
+
+                int ancho = bitmap.Width - margenIzquierdo - margenDerecho;
+                int alto = bitmap.Height - margenSuperior - margenInferior;
+
+                float maxValor = usuariosPrestamos.Max(x => x.CantidadPrestamos);
+                float altoBarraUnidad = alto / maxValor;
+
+                Color colorBarras = Color.FromArgb(173, 216, 230); // Pastel azul
+                Pen penEje = new Pen(Color.Black, 1);
+                Font fuente = new Font("Arial", 8);
+                Font fuenteEtiqueta = new Font("Arial", 7);
+
+                // Dibujar ejes
+                g.DrawLine(penEje, margenIzquierdo, bitmap.Height - margenInferior, 
+                    bitmap.Width - margenDerecho, bitmap.Height - margenInferior); // Eje X
+                g.DrawLine(penEje, margenIzquierdo, margenSuperior, 
+                    margenIzquierdo, bitmap.Height - margenInferior); // Eje Y
+
+                // Ancho de cada barra con espaciado
+                float anchoBarra = ancho / (float)(usuariosPrestamos.Count * 1.5f);
+                float espacioTotal = ancho / (float)usuariosPrestamos.Count;
+
+                // Dibujar barras
+                for (int i = 0; i < usuariosPrestamos.Count; i++)
+                {
+                    float xInicio = margenIzquierdo + (i * espacioTotal) + ((espacioTotal - anchoBarra) / 2);
+                    float altoBarra = usuariosPrestamos[i].CantidadPrestamos * altoBarraUnidad;
+                    float yInicio = bitmap.Height - margenInferior - altoBarra;
+
+                    using (Brush brush = new SolidBrush(colorBarras))
+                    {
+                        g.FillRectangle(brush, xInicio, yInicio, anchoBarra, altoBarra);
+                    }
+
+                    g.DrawRectangle(Pens.Black, xInicio, yInicio, anchoBarra, altoBarra);
+
+                    // Etiqueta con número de préstamos (encima de la barra)
+                    string etiqueta = usuariosPrestamos[i].CantidadPrestamos.ToString();
+                    SizeF tamanioTexto = g.MeasureString(etiqueta, fuenteEtiqueta);
+                    g.DrawString(etiqueta, fuenteEtiqueta, Brushes.Black, 
+                        xInicio + (anchoBarra / 2) - (tamanioTexto.Width / 2), yInicio - 15);
+
+                    // Nombre del usuario en eje X (debajo)
+                    string nombreCorto = usuariosPrestamos[i].NombreUsuario;
+                    if (nombreCorto.Length > 6)
+                        nombreCorto = nombreCorto.Substring(0, 6) + ".";
+                    
+                    SizeF tamanioNombre = g.MeasureString(nombreCorto, fuente);
+                    g.DrawString(nombreCorto, fuente, Brushes.Black, 
+                        xInicio + (anchoBarra / 2) - (tamanioNombre.Width / 2), 
+                        bitmap.Height - margenInferior + 8);
+                }
+
+                penEje.Dispose();
+                fuente.Dispose();
+                fuenteEtiqueta.Dispose();
+            }
+        }
+
+        pictureBoxUsuariosMasActivos.Image = bitmap;
+    }
+
+    private void DibujarGraficoLibrosMasPrestados()
+    {
+        // Contar préstamos por libro
+        var librosPrestamos = prestamos
+            .GroupBy(p => p.IdLibro)
+            .Select(g => new
+            {
+                IdLibro = g.Key,
+                NombreLibro = g.First().NombreLibro,
+                CantidadPrestamos = g.Count()
+            })
+            .OrderByDescending(x => x.CantidadPrestamos)
+            .Take(5) // Top 5 libros más prestados
+            .ToList();
+
+        // Crear bitmap para el gráfico
+        Bitmap bitmap = new Bitmap(pictureBoxLibrosMasPrestados.Width, pictureBoxLibrosMasPrestados.Height);
+        using (Graphics g = Graphics.FromImage(bitmap))
+        {
+            g.Clear(Color.Transparent);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+            if (librosPrestamos.Count == 0)
+            {
+                g.DrawString("No hay datos", new Font("Arial", 12), Brushes.Gray, 10, 10);
+            }
+            else
+            {
+                // Configurar parámetros del gráfico
+                int margenIzquierdo = 40;
+                int margenInferior = 60;
+                int margenSuperior = 20;
+                int margenDerecho = 10;
+
+                int ancho = bitmap.Width - margenIzquierdo - margenDerecho;
+                int alto = bitmap.Height - margenSuperior - margenInferior;
+
+                float maxValor = librosPrestamos.Max(x => x.CantidadPrestamos);
+                float altoBarraUnidad = alto / maxValor;
+
+                Color colorBarras = Color.FromArgb(173, 216, 230); // Pastel azul
+                Pen penEje = new Pen(Color.Black, 1);
+                Font fuente = new Font("Arial", 8);
+                Font fuenteEtiqueta = new Font("Arial", 7);
+
+                // Dibujar ejes
+                g.DrawLine(penEje, margenIzquierdo, bitmap.Height - margenInferior, 
+                    bitmap.Width - margenDerecho, bitmap.Height - margenInferior); // Eje X
+                g.DrawLine(penEje, margenIzquierdo, margenSuperior, 
+                    margenIzquierdo, bitmap.Height - margenInferior); // Eje Y
+
+                // Ancho de cada barra con espaciado
+                float anchoBarra = ancho / (float)(librosPrestamos.Count * 1.5f);
+                float espacioTotal = ancho / (float)librosPrestamos.Count;
+
+                // Dibujar barras
+                for (int i = 0; i < librosPrestamos.Count; i++)
+                {
+                    float xInicio = margenIzquierdo + (i * espacioTotal) + ((espacioTotal - anchoBarra) / 2);
+                    float altoBarra = librosPrestamos[i].CantidadPrestamos * altoBarraUnidad;
+                    float yInicio = bitmap.Height - margenInferior - altoBarra;
+
+                    using (Brush brush = new SolidBrush(colorBarras))
+                    {
+                        g.FillRectangle(brush, xInicio, yInicio, anchoBarra, altoBarra);
+                    }
+
+                    g.DrawRectangle(Pens.Black, xInicio, yInicio, anchoBarra, altoBarra);
+
+                    // Etiqueta con número de préstamos (encima de la barra)
+                    string etiqueta = librosPrestamos[i].CantidadPrestamos.ToString();
+                    SizeF tamanioTexto = g.MeasureString(etiqueta, fuenteEtiqueta);
+                    g.DrawString(etiqueta, fuenteEtiqueta, Brushes.Black, 
+                        xInicio + (anchoBarra / 2) - (tamanioTexto.Width / 2), yInicio - 15);
+
+                    // Nombre del libro en eje X (debajo)
+                    string nombreCorto = librosPrestamos[i].NombreLibro;
+                    if (nombreCorto.Length > 6)
+                        nombreCorto = nombreCorto.Substring(0, 6) + ".";
+                    
+                    SizeF tamanioNombre = g.MeasureString(nombreCorto, fuente);
+                    g.DrawString(nombreCorto, fuente, Brushes.Black, 
+                        xInicio + (anchoBarra / 2) - (tamanioNombre.Width / 2), 
+                        bitmap.Height - margenInferior + 8);
+                }
+
+                penEje.Dispose();
+                fuente.Dispose();
+                fuenteEtiqueta.Dispose();
+            }
+        }
+
+        pictureBoxLibrosMasPrestados.Image = bitmap;
     }
 }
